@@ -78,6 +78,7 @@ large—at least as great as the average gain over all tests examined.
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+if pip doesn't work just download this project and keep the split_ratio in you directory and use it.
 
 ```bash
 pip install split_ratio
