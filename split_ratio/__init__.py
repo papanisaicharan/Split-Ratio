@@ -1,5 +1,9 @@
 import math
 
+# Version of split_ratio package
+__version__ = "1.0.0"
+
+
 def info(D):
     categories = set(D)
     freqofcategories = dict()
@@ -43,7 +47,7 @@ def infoA(a,D):
         sum = sum+(interm*infoofDA(freqofcategoriesDwitha[x],freqofcategories[x]))
     return(float(sum))
     
-def info_gain(D,A):
+def info_gain(A,D):
     return(info(D)-infoA(A,D))
 
 
@@ -54,34 +58,22 @@ def split_infoA(a):
         if i not in freqofcategories:
             freqofcategories[i] = 0
         freqofcategories[i] = freqofcategories[i] + 1
-    print(freqofcategories)
+    # print(freqofcategories)
     sum = 0
     for x in freqofcategories:
-        interm = (freqofcategories[x]/len(D))
-        print(freqofcategories[x],len(D))
+        interm = (freqofcategories[x]/len(a))
+        # print(freqofcategories[x],len(a))
         sum = sum-((interm)*math.log(interm,2))
     return(float(sum))
 
 
-def gain_ratio(A,D):
-
-    categoriesD = list(set(D))
-    categories = set(a)
-    freqofcategoriesDwitha = dict()
-    for i in categories:
-        freqofcategoriesDwitha[i] = [0]*len(categoriesD)
-    freqofcategories = dict()
-    count = 0
-    for i in a:
-        if i not in freqofcategories:
-            freqofcategories[i] = 0
-        freqofcategories[i] = freqofcategories[i] + 1
-        freqofcategoriesDwitha[i][categoriesD.index(D[count])] +=1
-        count = count+1
-    suminfoA = 0.0
-    splitrationsum = 0
-    for x in freqofcategories:
-        interm = (freqofcategories[x]/len(D))
-        suminfoA = suminfoA+(interm*infoofDA(freqofcategoriesDwitha[x],freqofcategories[x]))
-        splitrationsum = splitrationsum+(interm*math.log(interm,2))
-    return( (info(D) - infoA(A,D))/splitrationsum)
+def gain_ratio(a,D):
+    p=float(info(D) - infoA(a,D))
+    if p == float(0) and split_infoA(a) != float(0.0):
+        return 0.0
+    elif p == float(0) and split_infoA(a) == float(0.0):
+        return("indeterminate form(0/0)")
+    else:
+        return p/split_infoA(a)
+    
+    
